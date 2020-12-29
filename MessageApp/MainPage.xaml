@@ -1,0 +1,46 @@
+﻿<Page
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="MessageApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MessageApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
+    xmlns:model="using:MessageApp.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Width="876">
+
+    <Grid Margin="0,0,0,360">
+
+        <TextBox x:Name="TxtTo" HorizontalAlignment="Left" Margin="98,69,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="403" 
+                 Header="To:" PlaceholderText="You can add more than one, just separated them by commas"/>
+        <TextBox x:Name="TxtMessage" HorizontalAlignment="Left" Margin="98,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="109" Width="403" Header="Message:"/>
+        <Button Content="Send" Margin="248,283,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+
+        <TextBlock Text="Message History" Margin="14,362,0,-28" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.794,0.538"></TextBlock>
+        <controls:DataGrid x:Name="myDataGrid" Margin="14,400,15,-340"
+                   AutoGenerateColumns="False"
+                   AlternatingRowBackground="LightGray"
+                   CanUserSortColumns="True"
+                   Sorting="dg_Sorting"
+                   VerticalScrollBarVisibility="Visible"
+                   HorizontalScrollBarVisibility="Visible"
+                ItemsSource="{x:Bind messageList}" >
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Sent" Binding="{Binding Sent}" Tag="Sent"/>
+                <controls:DataGridTextColumn Header="To" Binding="{Binding To}" Tag="To"/>
+                <controls:DataGridTextColumn Header="Message" Binding="{Binding MessageText}" Tag="MessageText"/>
+                <controls:DataGridTextColumn Header="Response" Binding="{Binding ConfirmationCode}" Tag="ConfirmationCode"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+        <TextBlock x:Name="ToValidator" HorizontalAlignment="Left" Margin="169,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFA0000"/>
+        <TextBlock x:Name="MessageValidator" HorizontalAlignment="Left" Margin="200,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFA0000" />
+
+    </Grid>
+
+
+
+</Page>
