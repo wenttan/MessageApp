@@ -35,6 +35,8 @@ namespace MessageApp
         public MainPage()
         {
             this.InitializeComponent();
+
+            //Setting the data for to show in the Datagrid
             messageList = MessageHistory();
         }
 
@@ -69,14 +71,14 @@ namespace MessageApp
                 messageDialog.CancelCommandIndex = 1;
                 await messageDialog.ShowAsync();
 
+                //Refreshing the datagrid data to show the new rows added
                 messageList = MessageHistory();
-
                 myDataGrid.ItemsSource = new ObservableCollection<MessageHistory>(from item in messageList
                                                                                   orderby item.Id descending
                                                                                   select item);
             }
 
-            
+
         }
 
         private string SendMessage(Message message)
@@ -85,7 +87,7 @@ namespace MessageApp
 
             try
             {
-                using(var db = new MessageAppDBContext())
+                using (var db = new MessageAppDBContext())
                 {
                     //Create message
                     db.Message.Add(message);
@@ -115,6 +117,10 @@ namespace MessageApp
             return result;
         }
 
+        /// <summary>
+        /// Gets the message history to be show in the DataGrid
+        /// </summary>
+        /// <returns></returns>
         private static List<MessageHistory> MessageHistory()
         {
 
@@ -132,7 +138,12 @@ namespace MessageApp
             }
         }
 
-        private void dg_Sorting(object sender, DataGridColumnEventArgs e)
+        /// <summary>
+        /// DataGrid sorting using Sent and To columns
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataSorting(object sender, DataGridColumnEventArgs e)
         {
             try
             {
@@ -142,15 +153,15 @@ namespace MessageApp
                     if (e.Column.SortDirection == null || e.Column.SortDirection == DataGridSortDirection.Descending)
                     {
                         myDataGrid.ItemsSource = new ObservableCollection<MessageHistory>(from item in messageList
-                                                                                              orderby item.Sent ascending
-                                                                            select item);
+                                                                                          orderby item.Sent ascending
+                                                                                          select item);
                         e.Column.SortDirection = DataGridSortDirection.Ascending;
                     }
                     else
                     {
                         myDataGrid.ItemsSource = new ObservableCollection<MessageHistory>(from item in messageList
-                                                                                              orderby item.Sent descending
-                                                                            select item);
+                                                                                          orderby item.Sent descending
+                                                                                          select item);
                         e.Column.SortDirection = DataGridSortDirection.Descending;
                     }
                 }
@@ -160,15 +171,15 @@ namespace MessageApp
                     if (e.Column.SortDirection == null || e.Column.SortDirection == DataGridSortDirection.Descending)
                     {
                         myDataGrid.ItemsSource = new ObservableCollection<MessageHistory>(from item in messageList
-                                                                                              orderby item.To ascending
-                                                                                              select item);
+                                                                                          orderby item.To ascending
+                                                                                          select item);
                         e.Column.SortDirection = DataGridSortDirection.Ascending;
                     }
                     else
                     {
                         myDataGrid.ItemsSource = new ObservableCollection<MessageHistory>(from item in messageList
-                                                                                              orderby item.To descending
-                                                                                              select item);
+                                                                                          orderby item.To descending
+                                                                                          select item);
                         e.Column.SortDirection = DataGridSortDirection.Descending;
                     }
                 }
@@ -188,6 +199,12 @@ namespace MessageApp
             }
         }
 
+        /// <summary>
+        /// Validates that the To and Message input fields are not empty
+        /// </summary>
+        /// <param name="to"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         private bool ValidateInput(string to, string message)
         {
             bool result = true;

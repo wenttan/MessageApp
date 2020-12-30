@@ -18,6 +18,9 @@
                  TextWrapping="Wrap" VerticalAlignment="Top" Width="403" 
                  Header="To:" PlaceholderText="You can add more than one, just separated them by commas"/>
         <TextBox x:Name="TxtMessage" HorizontalAlignment="Left" Margin="98,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="109" Width="403" Header="Message:"/>
+        <TextBlock x:Name="ToValidator" HorizontalAlignment="Left" Margin="169,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFA0000"/>
+        <TextBlock x:Name="MessageValidator" HorizontalAlignment="Left" Margin="200,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFA0000" />
+
         <Button Content="Send" Margin="248,283,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
         <TextBlock Text="Message History" Margin="14,362,0,-28" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.794,0.538"></TextBlock>
@@ -25,7 +28,7 @@
                    AutoGenerateColumns="False"
                    AlternatingRowBackground="LightGray"
                    CanUserSortColumns="True"
-                   Sorting="dg_Sorting"
+                   Sorting="DataSorting"
                    VerticalScrollBarVisibility="Visible"
                    HorizontalScrollBarVisibility="Visible"
                 ItemsSource="{x:Bind messageList}" >
@@ -36,8 +39,6 @@
                 <controls:DataGridTextColumn Header="Response" Binding="{Binding ConfirmationCode}" Tag="ConfirmationCode"/>
             </controls:DataGrid.Columns>
         </controls:DataGrid>
-        <TextBlock x:Name="ToValidator" HorizontalAlignment="Left" Margin="169,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFA0000"/>
-        <TextBlock x:Name="MessageValidator" HorizontalAlignment="Left" Margin="200,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFA0000" />
 
     </Grid>
 
